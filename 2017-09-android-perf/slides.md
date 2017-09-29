@@ -36,6 +36,7 @@ Linux Performance Tools, Brendan Gregg
 
 ## Profiling
 
+Sampling Profiler
 https://poormansprofiler.org
 
 !!!
@@ -46,7 +47,11 @@ Visualization technique
 
 !!!
 
-note: TBD FlameGraph Image Bash
+![](images/frame-graph-bash.png "")
+
+!!
+
+![](images/flame-graph-java-on-linux.png "")
 
 !!! 
 
@@ -96,6 +101,10 @@ flamegraph.pl
 ## How to Capture
 GUI vs CLI
 
+!!
+
+Not in this slide, but ask me if you want.
+
 !!!
 
 ## DDMS
@@ -112,7 +121,11 @@ $ANDROID_HOME/tools/monitor
 
 !!
 
-TBD android monitor screenshot
+![](images/DDMS.png "DDMS")
+
+!! 
+
+![](images/android-monitor.png "android monitor")
 
 !!!
 
@@ -147,13 +160,21 @@ E250K(Note2) does not allow us, root permission needed.
 
 ## RecyclerView Systrace 
 
-note: TBD screen shot
+![](images/systrace-RV-layout.png "")
 
 !! 
 
 ## RecyclerView Source
 
-note: TBD include source
+```
+class RecyclerView extends ... {
+	protected void onLayout(...) {
+		Trace.beginSection("RV OnLayout");
+		doSomething();
+		Trace.endSection();
+	}
+}
+```
 
 !!!
 
@@ -200,4 +221,59 @@ note: TBD screenshot
 
 ## WORKSHOP
 
+!!!
 
+* select your partner, two person - one team
+* each team select alternating tool - systrace, flamegraph
+* each team grab data with their tool
+* if all team finished their first run
+* mix partner
+* run another one
+
+!!!
+
+## Scripting Tips
+
+```
+export PKG=kr.co.vcnc.android.couple
+export LA=kr.co.vcnc.android.couple.feature.LaunchActivity
+```
+
+!!
+
+```
+H=`git rev-parse HEAD`; 
+(for i in `seq 20`; \
+  do (time adb shell am start \
+      -S \
+      -W $PKG/$LA \
+      -c android.intent.category.LAUNCHER \
+      -a android.intent.action.MAIN); 
+  done) \
+2> >(tee ~/tmp/$H >&2)
+```
+
+!!
+
+```
+grep real ~/tmp/$H | \
+ ruby -ne ' puts $_.split[1].split("m")[1][0...-1]' | 
+ ruby -e 'puts "c(" + $<.readlines.map(&:strip).join(",") + ")" '| 
+ pbcopy
+```
+
+!!
+
+```
+c(1.993,1.492,1.498,1.449,1.441,1.396,1.450,1.431,
+  1.470,1.912,1.821,1.778,1.477,1.515,1.484,1.469,
+  1.415,1.584,1.524,1.517,1.319,1.370,1.403,1.423,
+  1.409,1.368,1.392,1.394,1.384,1.412,1.390,1.415,
+  1.396,1.478,1.620,1.465,1.665,1.459,1.415,1.993)
+```
+
+!!
+
+![](images/ggplot-scatter-regester2activity.png "")
+
+!!!
