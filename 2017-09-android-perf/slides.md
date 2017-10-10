@@ -36,14 +36,19 @@ Linux Performance Tools, Brendan Gregg
 
 ## Profiling
 
-Sampling Profiler
+What is device doing?
+
+!!!
+
+## Pool man's Profiler
+
 https://poormansprofiler.org
 
 !!!
 
 # FlameGraph 
 
-Visualization technique
+Visualization of profiling data
 
 !!!
 
@@ -51,13 +56,12 @@ Visualization technique
 
 !!
 
+X axis is time, left-right has no meaning
+Y axis is stack depth
+
+!!
+
 ![](images/flame-graph-java-on-linux.png "")
-
-!!! 
-
-## Data to Vis 
-
-flamegraph.pl
 
 !!!
 
@@ -68,6 +72,14 @@ flamegraph.pl
 * Java, node.js, ruby 
 * Android 
 
+!!! 
+
+## Data to Vis 
+
+Data: ?
+Program: flamegraph.pl
+Output: HTML + SVG
+
 !!!
 
 # aflame.rhye.org
@@ -77,6 +89,8 @@ flamegraph.pl
 !!!
 
 # Trace
+
+How to get `Trace` file
 
 !!!
 
@@ -277,3 +291,10 @@ c(1.993,1.492,1.498,1.449,1.441,1.396,1.450,1.431,
 ![](images/ggplot-scatter-regester2activity.png "")
 
 !!!
+
+# Take aways 
+
+* Not a silver bullet But useful
+* Systrace for Frame dropping check 
+* FlameGraph for general accessment
+
