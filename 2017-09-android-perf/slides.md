@@ -56,8 +56,8 @@ Visualization of profiling data
 
 !!
 
-X axis is time, left-right has no meaning
-Y axis is stack depth
+* X axis is time, left-right has no meaning
+* Y axis is stack depth
 
 !!
 
@@ -76,9 +76,9 @@ Y axis is stack depth
 
 ## Data to Vis 
 
-Data: ?
-Program: flamegraph.pl
-Output: HTML + SVG
+* Input: Android `Trace`
+* Code: flamegraph.pl (by brendan gregg)
+* Output: HTML + SVG
 
 !!!
 
